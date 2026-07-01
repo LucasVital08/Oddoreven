@@ -53,7 +53,7 @@ describe("OddOrEvenSession", function () {
 
     // Deploy the session directly so player1 signer is the actual player1 in the contract
     const SessionFactory = await ethers.getContractFactory("OddOrEvenSession", player1);
-    session = await SessionFactory.deploy(player2.address, platformOwner.address, {
+    session = await SessionFactory.deploy(player1.address, player2.address, platformOwner.address, {
       value: DEFAULT_BID,
     });
 

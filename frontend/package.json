@@ -1,0 +1,33 @@
+{
+  "name": "oddoreven-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.2.1",
+    "@tanstack/react-query": "^5.62.7",
+    "framer-motion": "^11.15.0",
+    "next": "14.2.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-jazzicon": "^1.0.4",
+    "viem": "^2.21.55",
+    "wagmi": "^2.14.6",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
+  }
+}

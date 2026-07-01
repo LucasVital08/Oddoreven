@@ -52,11 +52,18 @@ contract OddOrEvenSession {
     event RoundCancelledByTimeout(address indexed proposer);
     event SessionClosed(uint256 finalBalance1, uint256 finalBalance2);
 
-    constructor(address payable _player2, address payable _platformOwner) payable {
+    constructor(
+        address payable _player1,
+        address payable _player2,
+        address payable _platformOwner
+    ) payable {
         require(msg.value > 0, "Initial deposit required");
-        require(_player2 != msg.sender, "Cannot play against yourself");
+        require(_player1 != address(0), "Invalid player1");
         require(_player2 != address(0), "Invalid player2");
-        player1 = payable(msg.sender);
+        require(_player2 != _player1, "Cannot play against yourself");
+        // Deposit is credited to player1 — msg.sender may be the factory, so
+        // player1 is passed explicitly to identify the human that opened the room.
+        player1 = _player1;
         player2 = _player2;
         platformOwner = _platformOwner;
         balance1 = msg.value;

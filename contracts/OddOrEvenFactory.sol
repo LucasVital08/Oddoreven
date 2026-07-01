@@ -26,7 +26,11 @@ contract OddOrEvenFactory {
         require(player2 != msg.sender, "Cannot play against yourself");
         require(player2 != address(0), "Invalid player2 address");
 
-        OddOrEvenSession session = new OddOrEvenSession{value: msg.value}(player2, owner);
+        OddOrEvenSession session = new OddOrEvenSession{value: msg.value}(
+            payable(msg.sender),
+            player2,
+            owner
+        );
 
         address sessionAddr = address(session);
         _sessions.push(sessionAddr);

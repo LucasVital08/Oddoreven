@@ -1,0 +1,518 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "_player1",
+        "type": "address"
+      },
+      {
+        "internalType": "address payable",
+        "name": "_player2",
+        "type": "address"
+      },
+      {
+        "internalType": "address payable",
+        "name": "_platformOwner",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "acceptor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "int8",
+        "name": "option",
+        "type": "int8"
+      }
+    ],
+    "name": "RoundAccepted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "proposer",
+        "type": "address"
+      }
+    ],
+    "name": "RoundCancelledByTimeout",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "rejector",
+        "type": "address"
+      }
+    ],
+    "name": "RoundRejected",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "winner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "netGain",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int8",
+        "name": "optionProposer",
+        "type": "int8"
+      },
+      {
+        "indexed": false,
+        "internalType": "int8",
+        "name": "optionAcceptor",
+        "type": "int8"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "byTimeout",
+        "type": "bool"
+      }
+    ],
+    "name": "RoundResult",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "proposer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "bet",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isOdd",
+        "type": "bool"
+      }
+    ],
+    "name": "RoundStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "finalBalance1",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "finalBalance2",
+        "type": "uint256"
+      }
+    ],
+    "name": "SessionClosed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deposit",
+        "type": "uint256"
+      }
+    ],
+    "name": "SessionJoined",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TopUp",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "COMMISSION",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "TIMEOUT",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int8",
+        "name": "option",
+        "type": "int8"
+      }
+    ],
+    "name": "acceptRound",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "balance1",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "balance2",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "cancelRoundByTimeout",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "claimRoundByTimeout",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "closeSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "currentRound",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "proposer",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "hashOption",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bool",
+        "name": "isOdd",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "bet",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum OddOrEvenSession.RoundState",
+        "name": "state",
+        "type": "uint8"
+      },
+      {
+        "internalType": "int8",
+        "name": "optionAcceptor",
+        "type": "int8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "acceptTime",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getBalances",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "bal1",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "bal2",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getRoundHistory",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "winner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "bet",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int8",
+            "name": "optionProposer",
+            "type": "int8"
+          },
+          {
+            "internalType": "int8",
+            "name": "optionAcceptor",
+            "type": "int8"
+          },
+          {
+            "internalType": "bool",
+            "name": "byTimeout",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct OddOrEvenSession.RoundRecord[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getRoundsCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "joinSession",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "platformOwner",
+    "outputs": [
+      {
+        "internalType": "address payable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "player1",
+    "outputs": [
+      {
+        "internalType": "address payable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "player2",
+    "outputs": [
+      {
+        "internalType": "address payable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "player2Joined",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rejectRound",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "keygame",
+        "type": "bytes"
+      },
+      {
+        "internalType": "int8",
+        "name": "optionProposer",
+        "type": "int8"
+      }
+    ],
+    "name": "revealRound",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "sessionClosed",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isOdd",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "hashOption",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "bet",
+        "type": "uint256"
+      }
+    ],
+    "name": "startRound",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "topUp",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]
