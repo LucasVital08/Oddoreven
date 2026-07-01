@@ -36,6 +36,20 @@ Abra http://localhost:3000.
 (RPC `http://127.0.0.1:8545`, chainId `31337`) e importe uma das chaves
 privadas que o `npx hardhat node` imprime para ter ETH de teste.
 
+## Teste end-to-end (sem abrir o navegador)
+
+Com o nó rodando e a factory deployada, valide o fluxo completo — usando a
+mesma lógica de hash commit-reveal do front:
+
+```bash
+cd frontend
+npm run smoke
+```
+
+Ele executa `createSession → join → propose → accept → reveal → close` e
+confere que o hash do front bate com o contrato e que a comissão de 1% só é
+cobrada no encerramento.
+
 ## Estrutura
 
 | Rota | Descrição |
